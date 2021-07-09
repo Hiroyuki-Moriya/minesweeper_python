@@ -15,7 +15,7 @@ input.onGesture(Gesture.Shake, function on_gesture_shake() {
     Mi_unq = randint(1, 25)
     Mi_row = Math.idiv(Mi_unq - 1, 5)
     Mi_col = Mi_unq - Mi_row * 5 - 1
-    basic.showString("Push A")
+    basic.showArrow(ArrowNames.West)
 })
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
@@ -29,6 +29,7 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
             led.plot(Wk_col, Wk_row)
             Wk_unq = Wk_row * 5 + Wk_col + 1
             basic.pause(500)
+            led.unplot(Wk_col, Wk_row)
             Wk_col += 1
         }
         Wk_row += 1
@@ -40,11 +41,12 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
     Ex_row = Wk_row
     Ex_unq = Ex_row * 5 + Ex_col + 1
     //  Judgment
-    basic.showString("Judgment")
     Result = ""
     //  Hit
     if (Mi_unq == Ex_unq) {
         Result = "Hit!"
+        basic.clearScreen()
+        basic.showIcon(IconNames.Happy)
     }
     
     //  Upper side

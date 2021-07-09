@@ -16,8 +16,7 @@ def on_gesture_shake():
     Mi_unq = randint(1, 25)
     Mi_row = (Mi_unq - 1) // 5
     Mi_col = Mi_unq - (Mi_row * 5) - 1
-
-    basic.show_string("Push A")
+    basic.show_arrow(ArrowNames.WEST)
 input.on_gesture(Gesture.SHAKE, on_gesture_shake)
 
 def on_button_pressed_a():
@@ -32,6 +31,7 @@ def on_button_pressed_a():
             led.plot(Wk_col, Wk_row)
             Wk_unq = (Wk_row * 5) + Wk_col + 1
             basic.pause(500)
+            led.unplot(Wk_col, Wk_row)
             Wk_col += 1
         Wk_row += 1
 input.on_button_pressed(Button.A, on_button_pressed_a)
@@ -43,11 +43,12 @@ def on_button_pressed_b():
     Ex_unq = (Ex_row * 5) + Ex_col + 1
 
   # Judgment
-    basic.show_string("Judgment")
     Result = ""
     # Hit
     if Mi_unq == Ex_unq:
         Result = "Hit!"
+        basic.clear_screen()
+        basic.show_icon(IconNames.HAPPY)
     # Upper side
     if Ex_row > 0 and Result == "":
         if (Ex_row - Mi_row) == 1:
