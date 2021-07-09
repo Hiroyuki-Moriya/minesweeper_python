@@ -7,6 +7,11 @@
  シェイクするまで何度でもできますので、  
  "Near" と "Far" の手がかりを使って位置を当ててください。  
 
+ Makecode is here↓
+ 　https://makecode.microbit.org/_FieMWecbviY9
+
+<div style="position:relative;height:calc(300px + 5em);width:100%;overflow:hidden;"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://makecode.microbit.org/---codeembed#pub:_FieMWecbviY9" allowfullscreen="allowfullscreen" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe></div>
+
 ---
 
 > このページを開く [https://hiroyuki-moriya.github.io/minesweeper_python/](https://hiroyuki-moriya.github.io/minesweeper_python/)
