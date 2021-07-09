@@ -1,5 +1,11 @@
 microbit-Minesweeper.md  
 
+## Ver 02  
+  変更点  
+* Bit turnのLEDの点灯を現在の位置の１個だけにした。  
+* Hitの時にスマイルマークが出るように変更。  
+* メッセージを修正。  
+
 ## Ver 01  
 シェイクするとゲームが始まります。  
 Aボタンを押すとLEDが順番に点灯します。  
@@ -17,6 +23,8 @@ You can do it as many times as you like until you shake it, so use the "Near" an
 メイクコードはこちら。 Makecode is here↓  
 　https://makecode.microbit.org/_FieMWecbviY9  
 
+microbit-Minesweeper_Python_v01.hex 2021‎/‎7‎/‎9‎ ‏‎11:49:37  
+microbit-Minesweeper_Python_v01debug.hex  2021‎/‎7‎/‎9‎ ‏‎‏‎9:52:09  
 
 ## microbit-Minesweeper 仕様 specification  
   """  
