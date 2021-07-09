@@ -7,10 +7,15 @@
  シェイクするまで何度でもできますので、  
  "Near" と "Far" の手がかりを使って位置を当ててください。  
 
- Makecode is here↓
- 　https://makecode.microbit.org/_FieMWecbviY9
+ Shake to start the game.  
+ When you press the A button, the LEDs will light up in order.  
+ Press the B button at the position where you think there is a mine.  
+ If it hits, "Hit!" Will be displayed, if it is close, "Near" will be displayed, and if it is far, "Far" will be displayed.  
+ You can do it as many times as you like until you shake it, so use the "Near" and "Far" clues to locate it.  
 
-<div style="position:relative;height:calc(300px + 5em);width:100%;overflow:hidden;"><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://makecode.microbit.org/---codeembed#pub:_FieMWecbviY9" allowfullscreen="allowfullscreen" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe></div>
+ メイクコードはこちら。 Makecode is here↓  
+ 　https://makecode.microbit.org/_FieMWecbviY9  
+
 
 ---
 
