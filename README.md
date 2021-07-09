@@ -1,3 +1,13 @@
+# Micro:bit Game 機雷掃海　マインスイーパー MineSweeper  
+
+ シェイクするとゲームが始まります。
+ Aボタンを押すとLEDが順番に点灯します。
+ 機雷があると思う位置でBボタンを押してください。
+ 当たれば "Hit!" 、近ければ "Near" 、遠ければ "Far" の表示が出ます。
+ シェイクするまで何度でもできますので、
+ "Near" と "Far" の手がかりを使って位置を当ててください。
+
+---
 
 > このページを開く [https://hiroyuki-moriya.github.io/minesweeper_python/](https://hiroyuki-moriya.github.io/minesweeper_python/)
 
