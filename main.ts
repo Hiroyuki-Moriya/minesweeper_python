@@ -15,14 +15,6 @@ input.onGesture(Gesture.Shake, function on_gesture_shake() {
     Mi_unq = randint(1, 25)
     Mi_row = Math.idiv(Mi_unq - 1, 5)
     Mi_col = Mi_unq - Mi_row * 5 - 1
-    //  Debug ↓
-    basic.showArrow(ArrowNames.East)
-    basic.showNumber(Mi_unq)
-    basic.showArrow(ArrowNames.East)
-    basic.showNumber(Mi_row)
-    basic.showArrow(ArrowNames.East)
-    basic.showNumber(Mi_col)
-    //  Debug ↑
     basic.showString("Push A")
 })
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
@@ -47,14 +39,6 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
     Ex_col = Wk_col
     Ex_row = Wk_row
     Ex_unq = Ex_row * 5 + Ex_col + 1
-    //  Debug ↓
-    basic.showArrow(ArrowNames.East)
-    basic.showNumber(Ex_unq)
-    basic.showArrow(ArrowNames.East)
-    basic.showNumber(Ex_row)
-    basic.showArrow(ArrowNames.East)
-    basic.showNumber(Ex_col)
-    //  Debug ↑
     //  Judgment
     basic.showString("Judgment")
     Result = ""

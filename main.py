@@ -16,14 +16,7 @@ def on_gesture_shake():
     Mi_unq = randint(1, 25)
     Mi_row = (Mi_unq - 1) // 5
     Mi_col = Mi_unq - (Mi_row * 5) - 1
-    # Debug ↓
-    basic.show_arrow(ArrowNames.EAST)
-    basic.show_number(Mi_unq)
-    basic.show_arrow(ArrowNames.EAST)
-    basic.show_number(Mi_row)
-    basic.show_arrow(ArrowNames.EAST)
-    basic.show_number(Mi_col)
-    # Debug ↑
+
     basic.show_string("Push A")
 input.on_gesture(Gesture.SHAKE, on_gesture_shake)
 
@@ -48,14 +41,6 @@ def on_button_pressed_b():
     Ex_col = Wk_col
     Ex_row = Wk_row
     Ex_unq = (Ex_row * 5) + Ex_col + 1
-    # Debug ↓
-    basic.show_arrow(ArrowNames.EAST)
-    basic.show_number(Ex_unq)
-    basic.show_arrow(ArrowNames.EAST)
-    basic.show_number(Ex_row)
-    basic.show_arrow(ArrowNames.EAST)
-    basic.show_number(Ex_col)
-    # Debug ↑
 
   # Judgment
     basic.show_string("Judgment")
