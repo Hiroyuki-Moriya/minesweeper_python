@@ -1,28 +1,39 @@
-Mi_col = 0
+"""
+    Title  : Minesweeper_Python
+    Version: 03
+    Author : Hiroyuki.Moriya
+    Use    : https://makecode.microbit.org/#editor
+"""
 Mi_row = 0
+Mi_col = 0
 Mi_unq = 0
-Wk_col = 0
 Wk_row = 0
+Wk_col = 0
 Wk_unq = 0
-Ex_col = 0
 Ex_row = 0
+Ex_col = 0
 Ex_unq = 0
 Result = ""
-basic.show_string("SHAKE")
+basic.show_string("Shake")
 
 def on_gesture_shake():
     global Mi_unq, Mi_row, Mi_col
-    basic.show_string("Bit turn")
     Mi_unq = randint(1, 25)
     Mi_row = (Mi_unq - 1) // 5
     Mi_col = Mi_unq - (Mi_row * 5) - 1
+    basic.pause(500)
+    basic.show_string("Start")
     basic.show_arrow(ArrowNames.WEST)
+    basic.pause(500)
+    basic.clear_screen()
+    basic.show_string("Attack")
+    basic.show_arrow(ArrowNames.EAST)
+    basic.pause(500)
+    basic.clear_screen()
 input.on_gesture(Gesture.SHAKE, on_gesture_shake)
 
 def on_button_pressed_a():
-    global Wk_unq,Wk_col,Wk_row
-    basic.show_string("Your turn")
-    basic.show_arrow(ArrowNames.EAST)
+    global Wk_unq, Wk_col, Wk_row, Result
     basic.clear_screen()
     Wk_row = 0
     while Wk_row < 5:
@@ -34,12 +45,32 @@ def on_button_pressed_a():
             led.unplot(Wk_col, Wk_row)
             Wk_col += 1
         Wk_row += 1
+    # For Debug
+    # global Mi_unq, Ex_unq
+    # basic.show_number(Mi_unq)
+    # basic.pause(500)
+    # basic.clear_screen()
+    # basic.show_number(Ex_unq)
+    # basic.pause(500)
+    # basic.clear_screen()
+
+    # Result announcement
+    basic.show_string(Result)
+    basic.pause(1000)
+    basic.clear_screen()
+    if Result == "Hit!":
+        basic.show_icon(IconNames.HAPPY)
+    else:
+        if Result == "Near":
+            basic.show_icon(IconNames.ASLEEP)
+        else:
+            basic.show_icon(IconNames.SAD)
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_b():
     global Ex_col, Ex_row, Wk_col, Wk_row, Ex_unq, Result
-    Ex_col = Wk_col
     Ex_row = Wk_row
+    Ex_col = Wk_col
     Ex_unq = (Ex_row * 5) + Ex_col + 1
 
   # Judgment
@@ -47,8 +78,6 @@ def on_button_pressed_b():
     # Hit
     if Mi_unq == Ex_unq:
         Result = "Hit!"
-        basic.clear_screen()
-        basic.show_icon(IconNames.HAPPY)
     # Upper side
     if Ex_row > 0 and Result == "":
         if (Ex_row - Mi_row) == 1:
@@ -56,7 +85,7 @@ def on_button_pressed_b():
     # lower side
     if Ex_row < 4 and Result == "":
         if (Ex_row - Mi_row) == -1:
-            Result = "Near" 
+            Result = "Near"
     # left side
     if Ex_col > 0 and Result == "":
         if (Ex_col - Mi_col) == 1:
@@ -84,5 +113,4 @@ def on_button_pressed_b():
     # Far
     if Result == "" or Result not in("Hit!" ,"Near"):
         Result = "Far"
-    basic.show_string(Result)
 input.on_button_pressed(Button.B, on_button_pressed_b)

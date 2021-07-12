@@ -1,26 +1,38 @@
-let Mi_col = 0
+/** 
+    Title  : Minesweeper_Python
+    Version: 03
+    Author : Hiroyuki.Moriya
+    Use    : https://makecode.microbit.org/#editor
+
+ */
 let Mi_row = 0
+let Mi_col = 0
 let Mi_unq = 0
-let Wk_col = 0
 let Wk_row = 0
+let Wk_col = 0
 let Wk_unq = 0
-let Ex_col = 0
 let Ex_row = 0
+let Ex_col = 0
 let Ex_unq = 0
 let Result = ""
-basic.showString("SHAKE")
+basic.showString("Shake")
 input.onGesture(Gesture.Shake, function on_gesture_shake() {
     
-    basic.showString("Bit turn")
     Mi_unq = randint(1, 25)
     Mi_row = Math.idiv(Mi_unq - 1, 5)
     Mi_col = Mi_unq - Mi_row * 5 - 1
+    basic.pause(500)
+    basic.showString("Start")
     basic.showArrow(ArrowNames.West)
+    basic.pause(500)
+    basic.clearScreen()
+    basic.showString("Attack")
+    basic.showArrow(ArrowNames.East)
+    basic.pause(500)
+    basic.clearScreen()
 })
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
-    basic.showString("Your turn")
-    basic.showArrow(ArrowNames.East)
     basic.clearScreen()
     Wk_row = 0
     while (Wk_row < 5) {
@@ -34,19 +46,37 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
         }
         Wk_row += 1
     }
+    //  For Debug
+    //  global Mi_unq, Ex_unq
+    //  basic.show_number(Mi_unq)
+    //  basic.pause(500)
+    //  basic.clear_screen()
+    //  basic.show_number(Ex_unq)
+    //  basic.pause(500)
+    //  basic.clear_screen()
+    //  Result announcement
+    basic.showString(Result)
+    basic.pause(1000)
+    basic.clearScreen()
+    if (Result == "Hit!") {
+        basic.showIcon(IconNames.Happy)
+    } else if (Result == "Near") {
+        basic.showIcon(IconNames.Asleep)
+    } else {
+        basic.showIcon(IconNames.Sad)
+    }
+    
 })
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     
-    Ex_col = Wk_col
     Ex_row = Wk_row
+    Ex_col = Wk_col
     Ex_unq = Ex_row * 5 + Ex_col + 1
     //  Judgment
     Result = ""
     //  Hit
     if (Mi_unq == Ex_unq) {
         Result = "Hit!"
-        basic.clearScreen()
-        basic.showIcon(IconNames.Happy)
     }
     
     //  Upper side
@@ -118,5 +148,4 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
         Result = "Far"
     }
     
-    basic.showString(Result)
 })
