@@ -1,5 +1,11 @@
 microbit-Minesweeper.md  
 
+## Ver 03  
+  変更点  
+* LEDの点灯が全て終わってから結果表示するように修正。  
+* 結果表示の時にでるスマイルマークを変更。  
+* メッセージを修正。  
+
 ## Ver 02  
   変更点  
 * Bit turnのLEDの点灯を現在の位置の１個だけにした。  
@@ -68,6 +74,7 @@ microbit-Minesweeper_Python_v01debug.hex  2021‎/‎7‎/‎9‎ ‏‎‏‎9:
 """  
 判定する  
   Judgment表示。  
+Hit:
   if Mi_unq = Ex_unq:  
      Hit表示  
 
