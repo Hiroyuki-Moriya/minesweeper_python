@@ -1,6 +1,6 @@
 """
     Title  : Minesweeper_Python
-    Version: 03
+    Version: 04
     Author : Hiroyuki.Moriya
     Use    : https://makecode.microbit.org/#editor
 """
@@ -33,7 +33,7 @@ def on_gesture_shake():
 input.on_gesture(Gesture.SHAKE, on_gesture_shake)
 
 def on_button_pressed_a():
-    global Wk_unq, Wk_col, Wk_row, Result
+    global Wk_unq, Wk_col, Wk_row, Ex_col, Ex_row
     basic.clear_screen()
     Wk_row = 0
     while Wk_row < 5:
@@ -45,16 +45,12 @@ def on_button_pressed_a():
             led.unplot(Wk_col, Wk_row)
             Wk_col += 1
         Wk_row += 1
-    # For Debug
-    # global Mi_unq, Ex_unq
-    # basic.show_number(Mi_unq)
-    # basic.pause(500)
-    # basic.clear_screen()
-    # basic.show_number(Ex_unq)
-    # basic.pause(500)
-    # basic.clear_screen()
-
+    # Plot Ex
+    led.plot_brightness(Ex_col, Ex_row, 128)
+    basic.pause(1000)
+    basic.clear_screen()
     # Result announcement
+    Result = Judgment(Mi_unq, Ex_unq, Ex_col, Ex_row)
     basic.show_string(Result)
     basic.pause(1000)
     basic.clear_screen()
@@ -72,8 +68,21 @@ def on_button_pressed_b():
     Ex_row = Wk_row
     Ex_col = Wk_col
     Ex_unq = (Ex_row * 5) + Ex_col + 1
+input.on_button_pressed(Button.B, on_button_pressed_b)
 
-  # Judgment
+def on_button_pressed_ab():
+    global Mi_unq, Mi_col, Mi_row, Ex_unq, Ex_col, Ex_row
+    basic.show_number(Mi_unq)
+    basic.pause(500)
+    basic.clear_screen()
+    basic.show_number(Ex_unq)
+    basic.pause(500)
+    basic.clear_screen()
+    led.plot_brightness(Mi_col, Mi_row, 256)
+    led.plot_brightness(Ex_col, Ex_row, 128)
+input.on_button_pressed(Button.AB, on_button_pressed_ab)
+
+def Judgment(Mi_unq: int, Ex_unq: int, Ex_col: int, Ex_row: int):
     Result = ""
     # Hit
     if Mi_unq == Ex_unq:
@@ -113,4 +122,4 @@ def on_button_pressed_b():
     # Far
     if Result == "" or Result not in("Hit!" ,"Near"):
         Result = "Far"
-input.on_button_pressed(Button.B, on_button_pressed_b)
+    return Result

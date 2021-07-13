@@ -1,6 +1,6 @@
 /** 
     Title  : Minesweeper_Python
-    Version: 03
+    Version: 04
     Author : Hiroyuki.Moriya
     Use    : https://makecode.microbit.org/#editor
 
@@ -46,15 +46,12 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
         }
         Wk_row += 1
     }
-    //  For Debug
-    //  global Mi_unq, Ex_unq
-    //  basic.show_number(Mi_unq)
-    //  basic.pause(500)
-    //  basic.clear_screen()
-    //  basic.show_number(Ex_unq)
-    //  basic.pause(500)
-    //  basic.clear_screen()
+    //  Plot Ex
+    led.plotBrightness(Ex_col, Ex_row, 128)
+    basic.pause(1000)
+    basic.clearScreen()
     //  Result announcement
+    let Result = Judgment(Mi_unq, Ex_unq, Ex_col, Ex_row)
     basic.showString(Result)
     basic.pause(1000)
     basic.clearScreen()
@@ -72,8 +69,20 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
     Ex_row = Wk_row
     Ex_col = Wk_col
     Ex_unq = Ex_row * 5 + Ex_col + 1
-    //  Judgment
-    Result = ""
+})
+input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
+    
+    basic.showNumber(Mi_unq)
+    basic.pause(500)
+    basic.clearScreen()
+    basic.showNumber(Ex_unq)
+    basic.pause(500)
+    basic.clearScreen()
+    led.plotBrightness(Mi_col, Mi_row, 256)
+    led.plotBrightness(Ex_col, Ex_row, 128)
+})
+function Judgment(Mi_unq: number, Ex_unq: number, Ex_col: number, Ex_row: number): string {
+    let Result = ""
     //  Hit
     if (Mi_unq == Ex_unq) {
         Result = "Hit!"
@@ -148,4 +157,6 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
         Result = "Far"
     }
     
-})
+    return Result
+}
+
