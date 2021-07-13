@@ -1,13 +1,16 @@
 microbit-Minesweeper.md  
 
-## Ver 03  
-  変更点  
+## Ver 04 変更点  
+* Aボタンを押した位置がわかるようにLEDを点灯させた。  
+* ソース整理。判定ロジックを関数Judgementとして独立させた。  
+* AボタンとBボタンを押すと答えを表示する機能を追加。  
+
+## Ver 03 変更点  
 * LEDの点灯が全て終わってから結果表示するように修正。  
 * 結果表示の時にでるスマイルマークを変更。  
 * メッセージを修正。  
 
-## Ver 02  
-  変更点  
+## Ver 02 変更点  
 * Bit turnのLEDの点灯を現在の位置の１個だけにした。  
 * Hitの時にスマイルマークが出るように変更。  
 * メッセージを修正。  
@@ -19,21 +22,20 @@ Aボタンを押すとLEDが順番に点灯します。
 当たれば "Hit!" 、近ければ "Near" 、遠ければ "Far" の表示が出ます。  
 シェイクするまで何度でもできますので、  
 "Near" と "Far" の手がかりを使って位置を当ててください。  
+答えを知りたいときは、AボタンとBボタンを同時に押してください。
 
 Shake to start the game.  
 When you press the A button, the LEDs will light up in order.  
 Press the B button at the position where you think there is a mine.  
 If it hits, "Hit!" Will be displayed, if it is close, "Near" will be displayed, and if it is far, "Far" will be displayed.  
 You can do it as many times as you like until you shake it, so use the "Near" and "Far" clues to locate it.  
+If you want to know the answer, press the A and B buttons at the same time.
 
 メイクコードはこちら。 Makecode is here↓  
-　https://makecode.microbit.org/_FieMWecbviY9  
+　https://makecode.microbit.org/_VmgdT5HhHHvY  
 
-microbit-Minesweeper_Python_v01.hex 2021‎/‎7‎/‎9‎ ‏‎11:49:37  
-microbit-Minesweeper_Python_v01debug.hex  2021‎/‎7‎/‎9‎ ‏‎‏‎9:52:09  
+## microbit-Minesweeper 仕様 specification  for V00  
 
-## microbit-Minesweeper 仕様 specification  
-  """  
 機雷(Mine)の位置を予想(Expect)して当てるゲーム  
   位置はLEDの５×５配列とし、(row,col)で表すことにする  
       col,rowがとる値は、0～4の整数  
@@ -53,71 +55,183 @@ microbit-Minesweeper_Python_v01debug.hex  2021‎/‎7‎/‎9‎ ‏‎‏‎9:
         距離1とは、Mi_rowとEx_rowの差の絶対値が1であること  
         または、Mi_colとEx_colの差の絶対値が1であることを指す。  
     "Far"  上下左右斜め方向に距離2以上離れている。    
-"""  
 
-
-"""  
 機雷の位置を決める  
   Bit Turn 表示。  
   振られたら乱数でMi_unq(1～25)を決める。  
   機雷の位置はMine(Mi_row,Mi_col)に格納する  
-"""  
 
-
-"""  
 予想する  
   Your Turn表示。  
   AボタンでLEDの光る位置を動かしBボタンで決定。  
   位置はExp(Ex_row,Ex_col)とEx_unqに格納する。  
-"""  
 
-"""  
 判定する  
   Judgment表示。  
-Hit:
-  if Mi_unq = Ex_unq:  
-     Hit表示  
-
-上判定:  
-  if Ex_row > 0 and Result == "":  
-    if (Ex_row - Mi_row) == 1:  
-      Result = "Near"  
-
-下判定:  
-  if Ex_row < 4 and Result == "":  
-    if (Ex_row - Mi_row) == -1:  
-      Result = "Near"  
-
-左判定:  
-  if Ex_col > 0 and Result == "":  
-    if (Ex_col - Mi_col) == 1:  
-      Result = "Near"  
-
-右判定:  
-  if Ex_col < 4 and Result == "":  
-    if (Ex_col - Mi_col) == -1:  
-      Result = "Near"  
-
-左上判定:  
-  if Ex_row > 0 and Ex_col > 0 and Result == "":  
-    if (Ex_unq - Mi_unq) == 6:  
-      Result = "Near"  
-
-
-右上判定:  
-  if Ex_row > 0 and Ex_col < 4 and Result == "":  
-    if (Ex_unq - Mi_unq) == -4:  
-      Result = "Near"  
-
-左下判定:  
-  if Ex_row < 4 and Ex_col > 0 and Result == "":  
-    if (Ex_unq - Mi_unq) == 4:  
-      Result = "Near"  
-
-右下判定:  
-  if Ex_row < 4 and Ex_col < 4 and Result == "":  
-    if (Ex_unq - Mi_unq) == -6:  
-      Result = "Near"  
-
-  Result = "Far"  
+  当たり判定:
+    if Mi_unq = Ex_unq:  
+       Hit表示  
+  上判定:  
+    if Ex_row > 0 and Result == "":  
+      if (Ex_row - Mi_row) == 1:  
+        Result = "Near"  
+  下判定:  
+    if Ex_row < 4 and Result == "":  
+      if (Ex_row - Mi_row) == -1:  
+        Result = "Near"  
+  左判定:  
+    if Ex_col > 0 and Result == "":  
+      if (Ex_col - Mi_col) == 1:  
+        Result = "Near"  
+  右判定:  
+    if Ex_col < 4 and Result == "":  
+      if (Ex_col - Mi_col) == -1:  
+        Result = "Near"  
+  左上判定:  
+    if Ex_row > 0 and Ex_col > 0 and Result == "":  
+      if (Ex_unq - Mi_unq) == 6:  
+        Result = "Near"  
+  右上判定:  
+    if Ex_row > 0 and Ex_col < 4 and Result == "":  
+      if (Ex_unq - Mi_unq) == -4:  
+        Result = "Near"  
+  左下判定:  
+    if Ex_row < 4 and Ex_col > 0 and Result == "":  
+      if (Ex_unq - Mi_unq) == 4:  
+        Result = "Near"  
+  右下判定:  
+    if Ex_row < 4 and Ex_col < 4 and Result == "":  
+      if (Ex_unq - Mi_unq) == -6:  
+        Result = "Near"  
+    Else:
+      Result = "Far"  
   Result表示  
+
+## Source code V04
+```
+"""
+    Title  : Minesweeper_Python
+    Version: 04
+    Author : Hiroyuki.Moriya
+    Use    : https://makecode.microbit.org/#editor
+"""
+Mi_row = 0
+Mi_col = 0
+Mi_unq = 0
+Wk_row = 0
+Wk_col = 0
+Wk_unq = 0
+Ex_row = 0
+Ex_col = 0
+Ex_unq = 0
+Result = ""
+basic.show_string("Shake")
+
+def on_gesture_shake():
+    global Mi_unq, Mi_row, Mi_col
+    Mi_unq = randint(1, 25)
+    Mi_row = (Mi_unq - 1) // 5
+    Mi_col = Mi_unq - (Mi_row * 5) - 1
+    basic.pause(500)
+    basic.show_string("Start")
+    basic.show_arrow(ArrowNames.WEST)
+    basic.pause(500)
+    basic.clear_screen()
+    basic.show_string("Attack")
+    basic.show_arrow(ArrowNames.EAST)
+    basic.pause(500)
+    basic.clear_screen()
+input.on_gesture(Gesture.SHAKE, on_gesture_shake)
+
+def on_button_pressed_a():
+    global Wk_unq, Wk_col, Wk_row, Ex_col, Ex_row
+    basic.clear_screen()
+    Wk_row = 0
+    while Wk_row < 5:
+        Wk_col = 0
+        while Wk_col < 5:
+            led.plot(Wk_col, Wk_row)
+            Wk_unq = (Wk_row * 5) + Wk_col + 1
+            basic.pause(500)
+            led.unplot(Wk_col, Wk_row)
+            Wk_col += 1
+        Wk_row += 1
+    # Plot Ex
+    led.plot_brightness(Ex_col, Ex_row, 128)
+    basic.pause(1000)
+    basic.clear_screen()
+    # Result announcement
+    Result = Judgment(Mi_unq, Ex_unq, Ex_col, Ex_row)
+    basic.show_string(Result)
+    basic.pause(1000)
+    basic.clear_screen()
+    if Result == "Hit!":
+        basic.show_icon(IconNames.HAPPY)
+    else:
+        if Result == "Near":
+            basic.show_icon(IconNames.ASLEEP)
+        else:
+            basic.show_icon(IconNames.SAD)
+input.on_button_pressed(Button.A, on_button_pressed_a)
+
+def on_button_pressed_b():
+    global Ex_col, Ex_row, Wk_col, Wk_row, Ex_unq, Result
+    Ex_row = Wk_row
+    Ex_col = Wk_col
+    Ex_unq = (Ex_row * 5) + Ex_col + 1
+input.on_button_pressed(Button.B, on_button_pressed_b)
+
+def on_button_pressed_ab():
+    global Mi_unq, Mi_col, Mi_row, Ex_unq, Ex_col, Ex_row
+    basic.show_number(Mi_unq)
+    basic.pause(500)
+    basic.clear_screen()
+    basic.show_number(Ex_unq)
+    basic.pause(500)
+    basic.clear_screen()
+    led.plot_brightness(Mi_col, Mi_row, 256)
+    led.plot_brightness(Ex_col, Ex_row, 128)
+input.on_button_pressed(Button.AB, on_button_pressed_ab)
+
+def Judgment(Mi_unq: int, Ex_unq: int, Ex_col: int, Ex_row: int):
+    Result = ""
+    # Hit
+    if Mi_unq == Ex_unq:
+        Result = "Hit!"
+    # Upper side
+    if Ex_row > 0 and Result == "":
+        if (Ex_row - Mi_row) == 1:
+            Result = "Near"
+    # lower side
+    if Ex_row < 4 and Result == "":
+        if (Ex_row - Mi_row) == -1:
+            Result = "Near"
+    # left side
+    if Ex_col > 0 and Result == "":
+        if (Ex_col - Mi_col) == 1:
+            Result = "Near"
+    # Right side
+    if Ex_col < 4 and Result == "":
+        if (Ex_col - Mi_col) == -1:
+            Result = "Near"
+    # Upper left side
+    if Ex_row > 0 and Ex_col > 0 and Result == "":
+        if (Ex_unq - Mi_unq) == 6:
+            Result = "Near"
+    # Upper right side
+    if Ex_row > 0 and Ex_col < 4 and Result == "":
+        if (Ex_unq - Mi_unq) == -4:
+            Result = "Near"
+    # Lower left side
+        if Ex_row < 4 and Ex_col > 0 and Result == "":
+            if (Ex_unq - Mi_unq) == 4:
+                Result = "Near"
+    # Lower left side
+    if Ex_row < 4 and Ex_col < 4 and Result == "":
+        if (Ex_unq - Mi_unq) == -6:
+            Result = "Near"
+    # Far
+    if Result == "" or Result not in("Hit!" ,"Near"):
+        Result = "Far"
+    return Result
+```
