@@ -1,25 +1,22 @@
 # Micro:bit Game 機雷掃海　マインスイーパー MineSweeper    
 
- シェイクするとゲームが始まります。  
- Aボタンを押すとLEDが順番に点灯します。  
- 機雷があると思う位置でBボタンを押してください。  
- 当たれば "Hit!" 、近ければ "Near" 、遠ければ "Far" の表示が出ます。  
- シェイクするまで何度でもできますので、  
- "Near" と "Far" の手がかりを使って位置を当ててください。  
+シェイクするとゲームが始まります。  
+Aボタンを押すとLEDが順番に点灯します。  
+機雷があると思う位置でBボタンを押してください。  
+当たれば "Hit!" 、近ければ "Near" 、遠ければ "Far" の表示が出ます。  
+シェイクするまで何度でもできますので、  
+"Near" と "Far" の手がかりを使って位置を当ててください。  
+答えを知りたいときは、AボタンとBボタンを同時に押してください。
 
- Shake to start the game.  
- When you press the A button, the LEDs will light up in order.  
- Press the B button at the position where you think there is a mine.  
- If it hits, "Hit!" Will be displayed, if it is close, "Near" will be displayed, and if it is far, "Far" will be displayed.  
- You can do it as many times as you like until you shake it, so use the "Near" and "Far" clues to locate it.  
+Shake to start the game.  
+When you press the A button, the LEDs will light up in order.  
+Press the B button at the position where you think there is a mine.  
+If it hits, "Hit!" Will be displayed, if it is close, "Near" will be displayed, and if it is far, "Far" will be displayed.  
+You can do it as many times as you like until you shake it, so use the "Near" and "Far" clues to locate it.  
+If you want to know the answer, press the A and B buttons at the same time.
 
-## Note  注意  2021-07-14  
- 最新のv04はデバッグ中です。  
- The latest v04 is being debugged.  
- 
- ## Makecode is here↓  メイクコードはこちら↓   
- 　https://makecode.microbit.org/_FieMWecbviY9  
-
+メイクコードはこちら。 Makecode is here↓  
+　https://makecode.microbit.org/_0cPX1Ycvgc5g  
 
 ---
 
