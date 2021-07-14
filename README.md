@@ -13,7 +13,11 @@
  If it hits, "Hit!" Will be displayed, if it is close, "Near" will be displayed, and if it is far, "Far" will be displayed.  
  You can do it as many times as you like until you shake it, so use the "Near" and "Far" clues to locate it.  
 
- メイクコードはこちら。 Makecode is here↓  
+## Note  注意  2021-07-14  
+ 最新のv04はデバッグ中です。  
+ The latest v04 is being debugged.  
+ 
+ ## Makecode is here↓  メイクコードはこちら↓   
  　https://makecode.microbit.org/_FieMWecbviY9  
 
 
