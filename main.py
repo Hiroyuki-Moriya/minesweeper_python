@@ -1,6 +1,6 @@
 """
     Title  : Minesweeper_Python
-    Version: 04
+    Version: 05
     Author : Hiroyuki.Moriya
     Use    : https://makecode.microbit.org/#editor
 """
@@ -50,7 +50,7 @@ def on_button_pressed_a():
     basic.pause(1000)
     basic.clear_screen()
     # Result announcement
-    Result = Judgment(Mi_unq, Ex_unq, Ex_col, Ex_row)
+    Result = Judgment(Mi_unq, Ex_unq)
     basic.show_string(Result)
     basic.pause(1000)
     basic.clear_screen()
@@ -80,46 +80,52 @@ def on_button_pressed_ab():
     basic.clear_screen()
     led.plot_brightness(Mi_col, Mi_row, 256)
     led.plot_brightness(Ex_col, Ex_row, 128)
+    basic.pause(1000)
+    basic.clear_screen()
 input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
-def Judgment(Mi_unq: int, Ex_unq: int, Ex_col: int, Ex_row: int):
+def Judgment(Mi_unq: int, Ex_unq: int):
     Result = ""
     # Hit
     if Mi_unq == Ex_unq:
         Result = "Hit!"
+    # Four corners
+    if Mi_unq == 1 and Result == "":
+        if Ex_unq in (2, 6, 7):
+            Result = "Near"
+    else:
+        if Mi_unq == 5 and Result == "":
+            if Ex_unq in (4, 9, 10):
+                Result = "Near"
+        else:
+            if Mi_unq == 21 and Result == "":
+                if Ex_unq in (16, 17, 22):
+                    Result = "Near"
+            else:
+                if Mi_unq == 25 and Result == "":
+                    if Ex_unq in (19, 20, 24):
+                        Result = "Near"
     # Upper side
-    if Ex_row > 0 and Result == "":
-        if (Ex_row - Mi_row) == 1:
+    if Mi_unq in (2, 3, 4) and Result == "":
+        if Ex_unq in (Mi_unq - 1, Mi_unq + 1, Mi_unq + 4, Mi_unq + 5, Mi_unq + 6):
             Result = "Near"
     # lower side
-    if Ex_row < 4 and Result == "":
-        if (Ex_row - Mi_row) == -1:
+    if Mi_unq in (22, 23, 24) and Result == "":
+        if Ex_unq in (Mi_unq - 1, Mi_unq + 1, Mi_unq - 6 , Mi_unq - 5, Mi_unq - 4):
             Result = "Near"
     # left side
-    if Ex_col > 0 and Result == "":
-        if (Ex_col - Mi_col) == 1:
+    if Mi_unq in (6, 11, 16) and Result == "":
+        if Ex_unq in (Mi_unq + 1, Mi_unq - 5 , Mi_unq - 4, Mi_unq + 5, Mi_unq + 6):
             Result = "Near"
     # Right side
-    if Ex_col < 4 and Result == "":
-        if (Ex_col - Mi_col) == -1:
+    if Mi_unq in (10, 15, 20) and Result == "":
+        if Ex_unq in (Mi_unq - 6, Mi_unq - 5 , Mi_unq - 1, Mi_unq + 4, Mi_unq + 5):
             Result = "Near"
-    # Upper left side
-    if Ex_row > 0 and Ex_col > 0 and Result == "":
-        if (Ex_unq - Mi_unq) == 6:
-            Result = "Near"
-    # Upper right side
-    if Ex_row > 0 and Ex_col < 4 and Result == "":
-        if (Ex_unq - Mi_unq) == -4:
-            Result = "Near"
-    # Lower left side
-        if Ex_row < 4 and Ex_col > 0 and Result == "":
-            if (Ex_unq - Mi_unq) == 4:
-                Result = "Near"
-    # Lower left side
-    if Ex_row < 4 and Ex_col < 4 and Result == "":
-        if (Ex_unq - Mi_unq) == -6:
+    # Center
+    if Mi_unq in (7, 8, 9, 12, 13, 14, 17, 18, 19) and Result == "":
+        if Ex_unq in (Mi_unq - 6, Mi_unq - 5 , Mi_unq - 4, Mi_unq - 1, Mi_unq + 1, Mi_unq + 4, Mi_unq + 5, Mi_unq + 6):
             Result = "Near"
     # Far
-    if Result == "" or Result not in("Hit!" ,"Near"):
+    if Result == "":
         Result = "Far"
     return Result

@@ -1,6 +1,6 @@
 /** 
     Title  : Minesweeper_Python
-    Version: 04
+    Version: 05
     Author : Hiroyuki.Moriya
     Use    : https://makecode.microbit.org/#editor
 
@@ -51,7 +51,7 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
     basic.pause(1000)
     basic.clearScreen()
     //  Result announcement
-    let Result = Judgment(Mi_unq, Ex_unq, Ex_col, Ex_row)
+    let Result = Judgment(Mi_unq, Ex_unq)
     basic.showString(Result)
     basic.pause(1000)
     basic.clearScreen()
@@ -80,80 +80,81 @@ input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     basic.clearScreen()
     led.plotBrightness(Mi_col, Mi_row, 256)
     led.plotBrightness(Ex_col, Ex_row, 128)
+    basic.pause(1000)
+    basic.clearScreen()
 })
-function Judgment(Mi_unq: number, Ex_unq: number, Ex_col: number, Ex_row: number): string {
+function Judgment(Mi_unq: number, Ex_unq: number): string {
     let Result = ""
     //  Hit
     if (Mi_unq == Ex_unq) {
         Result = "Hit!"
     }
     
+    //  Four corners
+    if (Mi_unq == 1 && Result == "") {
+        if ([2, 6, 7].indexOf(Ex_unq) >= 0) {
+            Result = "Near"
+        }
+        
+    } else if (Mi_unq == 5 && Result == "") {
+        if ([4, 9, 10].indexOf(Ex_unq) >= 0) {
+            Result = "Near"
+        }
+        
+    } else if (Mi_unq == 21 && Result == "") {
+        if ([16, 17, 22].indexOf(Ex_unq) >= 0) {
+            Result = "Near"
+        }
+        
+    } else if (Mi_unq == 25 && Result == "") {
+        if ([19, 20, 24].indexOf(Ex_unq) >= 0) {
+            Result = "Near"
+        }
+        
+    }
+    
     //  Upper side
-    if (Ex_row > 0 && Result == "") {
-        if (Ex_row - Mi_row == 1) {
+    if ([2, 3, 4].indexOf(Mi_unq) >= 0 && Result == "") {
+        if ([Mi_unq - 1, Mi_unq + 1, Mi_unq + 4, Mi_unq + 5, Mi_unq + 6].indexOf(Ex_unq) >= 0) {
             Result = "Near"
         }
         
     }
     
     //  lower side
-    if (Ex_row < 4 && Result == "") {
-        if (Ex_row - Mi_row == -1) {
+    if ([22, 23, 24].indexOf(Mi_unq) >= 0 && Result == "") {
+        if ([Mi_unq - 1, Mi_unq + 1, Mi_unq - 6, Mi_unq - 5, Mi_unq - 4].indexOf(Ex_unq) >= 0) {
             Result = "Near"
         }
         
     }
     
     //  left side
-    if (Ex_col > 0 && Result == "") {
-        if (Ex_col - Mi_col == 1) {
+    if ([6, 11, 16].indexOf(Mi_unq) >= 0 && Result == "") {
+        if ([Mi_unq + 1, Mi_unq - 5, Mi_unq - 4, Mi_unq + 5, Mi_unq + 6].indexOf(Ex_unq) >= 0) {
             Result = "Near"
         }
         
     }
     
     //  Right side
-    if (Ex_col < 4 && Result == "") {
-        if (Ex_col - Mi_col == -1) {
+    if ([10, 15, 20].indexOf(Mi_unq) >= 0 && Result == "") {
+        if ([Mi_unq - 6, Mi_unq - 5, Mi_unq - 1, Mi_unq + 4, Mi_unq + 5].indexOf(Ex_unq) >= 0) {
             Result = "Near"
         }
         
     }
     
-    //  Upper left side
-    if (Ex_row > 0 && Ex_col > 0 && Result == "") {
-        if (Ex_unq - Mi_unq == 6) {
-            Result = "Near"
-        }
-        
-    }
-    
-    //  Upper right side
-    if (Ex_row > 0 && Ex_col < 4 && Result == "") {
-        if (Ex_unq - Mi_unq == -4) {
-            Result = "Near"
-        }
-        
-        //  Lower left side
-        if (Ex_row < 4 && Ex_col > 0 && Result == "") {
-            if (Ex_unq - Mi_unq == 4) {
-                Result = "Near"
-            }
-            
-        }
-        
-    }
-    
-    //  Lower left side
-    if (Ex_row < 4 && Ex_col < 4 && Result == "") {
-        if (Ex_unq - Mi_unq == -6) {
+    //  Center
+    if ([7, 8, 9, 12, 13, 14, 17, 18, 19].indexOf(Mi_unq) >= 0 && Result == "") {
+        if ([Mi_unq - 6, Mi_unq - 5, Mi_unq - 4, Mi_unq - 1, Mi_unq + 1, Mi_unq + 4, Mi_unq + 5, Mi_unq + 6].indexOf(Ex_unq) >= 0) {
             Result = "Near"
         }
         
     }
     
     //  Far
-    if (Result == "" || ["Hit!", "Near"].indexOf(Result) < 0) {
+    if (Result == "") {
         Result = "Far"
     }
     
